@@ -1,7 +1,9 @@
 name: Cherry Pick
 
 on:
-  pull_request:
+  push:
+    branches:
+      - master
 
 
 jobs:
@@ -13,6 +15,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            console.log(context);
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
