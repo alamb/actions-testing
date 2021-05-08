@@ -39,18 +39,3 @@ jobs:
           python-version: 3.8
       - name: Check the python version (for some reason...)
         run: python -v
-
-
-  cherry-pick:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/github-script@v4
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Beginning cherry-pick process...!'
-            })
