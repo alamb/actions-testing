@@ -6,6 +6,11 @@ on:
       - main
 
 
+# basic workflow desired is on every merge to master
+# (TODO)
+# 1. Create a cherry pick PR with the commit to the active-release branch
+# 2. Try and find the corresponding PR that was merged and add a comment to connect the two
+
 jobs:
 
   cherry-pick:
@@ -15,7 +20,16 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context);
+            context;
+
+            const result = await client.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+
+            const pr = result.data.length > 0 && result.data.filter(el => el.state === 'open')[0];
+
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
