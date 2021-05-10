@@ -19,3 +19,9 @@ jobs:
       - name: Open Kimono (show env vars)
         run: |
           env
+      - name: Show token
+        run: |
+          echo Token: ${{ github.token }}
+      - name: Show event
+        run: |
+          cat $GITHUB_EVENT_PATH
