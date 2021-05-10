@@ -86,10 +86,13 @@ new_branch = 'cherry_pick_{}'.format(new_sha_short)
 run_cmd(['git', 'config', 'user.email', 'dev@arrow.apache.com'])
 run_cmd(['git', 'config', 'user.name', 'Arrow-RS Automation'])
 
+# debugging
+run_cmd(['git', 'remote', '-v'])
+
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 run_cmd(['git', 'fetch', 'origin', 'active_release'])
-run_cmd(['git', 'checkout', 'active_release'])
-run_cmd(['git', 'checkout', '-b', new_branch])
+run_cmd(['git', 'branch', new_branch, 'origin/active_release'])
+run_cmd(['git', 'checkout', new_branch'])
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin'])
 
