@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Attempt to create cherry pick PR
-        uses: actions/checkout@v2
         env:
           ARROW_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
