@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: Checkout active release
         uses: actions/checkout@v2
-          with:
-            ref: active_release
+        with:
+          ref: active_release
 
       - name: Checkout branch
         uses: actions/checkout@v2
