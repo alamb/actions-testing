@@ -12,12 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout active release
-        uses: actions/checkout@v2
-        with:
-          ref: active_release
-
-      - name: Checkout branch
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Attempt to create cherry pick PR

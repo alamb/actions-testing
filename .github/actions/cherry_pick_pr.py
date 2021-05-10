@@ -10,7 +10,7 @@
 # When invoked on the gib runner, it has the following environment variables available
 #
 # To test locally:
-# pip3 install PyGithub pygit2
+# pip3 install PyGithub
 # ARROW_GITHUB_API_TOKEN=<your token> python3 cherry_pick_pr.py example_webhooks/commit_to_master.json
 #
 import os
@@ -84,8 +84,9 @@ new_sha_short = run_cmd("git rev-parse --short {}".format(new_sha)).strip()
 new_branch = 'cherry_pick_{}'.format(new_sha_short)
 
 
-print("Creating cherry pick from {} to {}", new_sha_short, new_branch)
-run_cmd('git checkout active_release')
+print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
+run_cmd(['git', 'fetch', 'origin', 'active_release'])
+run_cmd(['git', 'checkout', 'active_release'])
 run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin'])
