@@ -96,9 +96,11 @@ for orig_pull in commit.get_pulls():
     print ('Commit was in original pull {}', pr.html_url)
 
 
+new_title = 'Cherry pick {}'.format(new_sha)
 new_commit_message = 'Automatic cherry-pick of {}\n'.format(new_sha);
 for orig_pull in commit.get_pulls():
     new_commit_message += '* Originally appeared in {}: {}\n'.format(orig_pull.html_url, orig_pull.title)
+    new_title = 'Cherry pick {}'.format(orig_pull.title)
 
 
 #
@@ -107,9 +109,10 @@ for orig_pull in commit.get_pulls():
 #
 
 
-pr = repo.create_pull(title='Cherry Pick',
-                 body=new_commit_message,
-                 head='refs/heads/{}'.format(new_branch),
-                 maintainer_can_modify=true
+pr = repo.create_pull(title=new_title,
+                      body=new_commit_message,
+                      base='refs/heads/active_release',
+                      head='refs/heads/{}'.format(new_branch),
+                      maintainer_can_modify=True
                  )
 print('Created PR {}'.format(pr.html_url))
