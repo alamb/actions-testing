@@ -10,11 +10,18 @@ jobs:
 
   cherry-pick:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Attempt to create cherry pick PR
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+    - name: Attempt to create cherry pick PR
         env:
           ARROW_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
+          echo workspace ${{ github.workspace }}
           ls ${{ github.workspace }}
           #pip3 install PyGithub
           python3 ${{ github.workspace }}/.github/actions/cherry_pick_pr.py ${{ github.event_path }}
