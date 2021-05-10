@@ -26,6 +26,8 @@ TARGET_BRANCH='active_release'
 p = Path(__file__)
 repo_root = p.parent.parent
 
+## TEMP
+repo_root = '/tmp/actions-testing';
 print("Using checkout in {}".format(repo_root));
 
 
@@ -71,6 +73,7 @@ if basket is None:
 
 print('Creating PR into active_release for commit {} into {}'.format(cherry.short_id, basket.name))
 
+
 base      = repo.merge_base(cherry.oid, basket.target)
 base_tree = cherry.parents[0].tree
 
@@ -80,8 +83,22 @@ tree_id = index.write_tree(repo)
 author    = cherry.author
 committer = pygit2.Signature('Archimedes', 'archy@jpl-classics.org')
 
-repo.create_commit(basket.name, author, committer, cherry.message,
-                   tree_id, [basket.target])
+
+
+new_branch_name = "cherry_pick_{}".format(cherry.short_id)
+new_branch = repo.branches.local.create(new_branch_name, repo.get(basket.target))
+print('Created new branch {}'.format(new_branch.name))
+
+commit_message = 'Automatically created via cherry-pick from {}\n{}'.format(cherry.id, cherry.message);
+
+new_commit = repo.create_commit(new_branch.name, author, committer, commit_message,
+                   tree_id, [new_branch.target])
+
+print("made new merge commit: ", new_commit);
+
+print("Pushing to remote");
+repo.remotes['origin'].push([new_branch.name])
+
 
 
 
