@@ -69,7 +69,7 @@ if basket is None:
     print('Can not find target branch {}'.format(TARGET_BRANCH))
     sys.exit(1)
 
-print('Creating PR into active_release for commit {} into {}'.format(cherry.short_id, basket.id))
+print('Creating PR into active_release for commit {} into {}'.format(cherry.short_id, basket.name))
 
 base      = repo.merge_base(cherry.oid, basket.target)
 base_tree = cherry.parents[0].tree
