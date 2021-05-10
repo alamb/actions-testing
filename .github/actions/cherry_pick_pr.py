@@ -83,6 +83,8 @@ new_sha = action['after']
 new_sha_short = run_cmd("git rev-parse --short {}".format(new_sha)).strip()
 new_branch = 'cherry_pick_{}'.format(new_sha_short)
 
+run_cmd(['git', 'config', 'user.email', 'dev@arrow.apache.com']
+run_cmd(['git', 'config', 'user.name', 'Arrow-RS Automation']
 
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 run_cmd(['git', 'fetch', 'origin', 'active_release'])
