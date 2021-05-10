@@ -25,3 +25,11 @@ jobs:
       - name: Show event
         run: |
           cat $GITHUB_EVENT_PATH
+
+      - name: Show python pip
+        run: |
+          pip freeze
+
+      - name: Show python3 pip
+        run: |
+          pip3 freeze
