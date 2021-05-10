@@ -17,7 +17,7 @@ jobs:
         with:
           path: main
 
-    - name: Attempt to create cherry pick PR
+      - name: Attempt to create cherry pick PR
         env:
           ARROW_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
