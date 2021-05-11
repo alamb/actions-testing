@@ -76,7 +76,6 @@ def run_cmd(cmd):
 
 os.chdir(repo_root)
 
-
 # Some relevant fields on the action:
 # * `after` is the new commit,
 # * `before` is the previous commit
@@ -91,6 +90,9 @@ run_cmd(['git', 'config', 'user.name', 'Arrow-RS Automation'])
 # Create a new branch from active_release
 # and cherry pick to there.
 #
+
+# DEBUG
+run_cmd(['git', 'status'])
 
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 run_cmd(['git', 'fetch', '--all'])
