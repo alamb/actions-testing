@@ -53,8 +53,6 @@ def run_cmd(cmd):
     if isinstance(cmd, six.string_types):
         cmd = cmd.split(' ')
 
-    print("DEBUG: running command", cmd)
-
     try:
         output = subprocess.check_output(cmd)
     except subprocess.CalledProcessError as e:
@@ -69,9 +67,6 @@ def run_cmd(cmd):
     if isinstance(output, six.binary_type):
         output = output.decode('utf-8')
 
-
-    print("DEBUG OUTPUT IS: ")
-    print(output)
     return output
 
 
