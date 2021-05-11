@@ -1,10 +1,2 @@
 # actions-testing
-Testing repository for github actions
-Test
-again
-
-Again
-And again
-This is a test
-Test example
-Another change
+This repository demonstrates how automatic cherry picking could work
