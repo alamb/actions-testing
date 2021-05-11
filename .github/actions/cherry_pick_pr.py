@@ -101,6 +101,8 @@ run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
 run_cmd(['git', 'reflog'])
 run_cmd(['git', 'log'])
+print("quitting early")
+sys.exit(1)
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin', new_branch])
 
