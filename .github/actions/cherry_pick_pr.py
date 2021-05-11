@@ -98,6 +98,7 @@ run_cmd(['git', 'status'])
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 # pull 10 commits back so we can get the proper cherry pick
 run_cmd(['git', 'fetch', '--depth', '10', 'origin', 'main' ])
+run_cmd(['git', 'fetch', 'origin', 'active_release' ])
 run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
 run_cmd(['git', 'reflog'])
