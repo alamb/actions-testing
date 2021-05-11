@@ -68,6 +68,10 @@ def run_cmd(cmd):
 
     if isinstance(output, six.binary_type):
         output = output.decode('utf-8')
+
+
+    print("DEBUG OUTPUT IS: ")
+    print(output)
     return output
 
 
