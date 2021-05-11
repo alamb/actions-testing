@@ -99,6 +99,8 @@ print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 run_cmd(['git', 'fetch', '--all'])
 run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
+run_cmd(['git', 'reflog'])
+run_cmd(['git', 'log'])
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin', new_branch])
 
