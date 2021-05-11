@@ -87,9 +87,6 @@ run_cmd(['git', 'config', 'user.name', 'Arrow-RS Automation'])
 # and cherry pick to there.
 #
 
-# DEBUG
-run_cmd(['git', 'status'])
-
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 # pull 10 commits back so we can get the proper cherry pick
 # (probably only need 2 but 10 must be better, right?)
@@ -98,8 +95,6 @@ run_cmd(['git', 'fetch', '--depth', '10', 'origin', 'main' ])
 run_cmd(['git', 'fetch', 'origin', 'active_release' ])
 run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
-run_cmd(['git', 'reflog'])
-run_cmd(['git', 'log'])
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin', new_branch])
 
@@ -111,8 +106,6 @@ repo = g.get_repo('alamb/actions-testing')
 commit = repo.get_commit(new_sha)
 for orig_pull in commit.get_pulls():
     print ('Commit was in original pull {}', pr.html_url)
-
-#sys.exit(0)
 
 new_title = 'Cherry pick {}'.format(new_sha)
 new_commit_message = 'Automatic cherry-pick of {}\n'.format(new_sha);
