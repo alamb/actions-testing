@@ -97,6 +97,8 @@ run_cmd(['git', 'status'])
 
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
 # pull 10 commits back so we can get the proper cherry pick
+# (probably only need 2 but 10 must be better, right?)
+# the default github cherry picker only fetches depth of 1
 run_cmd(['git', 'fetch', '--depth', '10', 'origin', 'main' ])
 run_cmd(['git', 'fetch', 'origin', 'active_release' ])
 run_cmd(['git', 'checkout', '-b', new_branch])
