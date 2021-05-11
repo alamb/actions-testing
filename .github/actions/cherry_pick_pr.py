@@ -115,7 +115,7 @@ repo = g.get_repo('alamb/actions-testing')
 
 commit = repo.get_commit(new_sha)
 for orig_pull in commit.get_pulls():
-    print ('Commit was in original pull {}', pr.html_url)
+    print ('Commit was in original pull {}', orig_pull.html_url)
 
 #sys.exit(0)
 
