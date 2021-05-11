@@ -34,7 +34,6 @@ repo_root = p.parent.parent
 print("Using checkout in {}".format(repo_root));
 
 
-
 # Get the action's body into action
 if len(sys.argv) == 2:
     path_to_action = sys.argv[1]
@@ -56,6 +55,8 @@ repo = g.get_repo('alamb/actions-testing')
 def run_cmd(cmd):
     if isinstance(cmd, six.string_types):
         cmd = cmd.split(' ')
+
+    print("DEBUG: running command", cmd)
 
     try:
         output = subprocess.check_output(cmd)
@@ -86,21 +87,23 @@ new_branch = 'cherry_pick_{}'.format(new_sha_short)
 run_cmd(['git', 'config', 'user.email', 'dev@arrow.apache.com'])
 run_cmd(['git', 'config', 'user.name', 'Arrow-RS Automation'])
 
-# debugging
-run_cmd(['git', 'remote', '-v'])
+#
+# Create a new branch from active_release
+# and cherry pick to there.
+#
 
 print("Creating cherry pick from {} to {}".format(new_sha_short, new_branch))
-run_cmd(['git', 'fetch', 'origin', 'active_release'])
-run_cmd(['git', 'branch', new_branch, 'origin/active_release'])
-run_cmd(['git', 'checkout', new_branch])
+run_cmd(['git', 'fetch', '--all'])
+run_cmd(['git', 'checkout', '-b', new_branch])
+run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
 run_cmd(['git', 'cherry-pick', new_sha])
-run_cmd(['git', 'push', '-u', 'origin'])
-
+run_cmd(['git', 'push', '-u', 'origin', new_branch])
 
 commit = repo.get_commit(new_sha)
 for orig_pull in commit.get_pulls():
     print ('Commit was in original pull {}', pr.html_url)
 
+#sys.exit(0)
 
 new_title = 'Cherry pick {}'.format(new_sha)
 new_commit_message = 'Automatic cherry-pick of {}\n'.format(new_sha);
@@ -108,11 +111,6 @@ for orig_pull in commit.get_pulls():
     new_commit_message += '* Originally appeared in {}: {}\n'.format(orig_pull.html_url, orig_pull.title)
     new_title = 'Cherry pick {}'.format(orig_pull.title)
 
-
-#
-# The plan here is to effectively create a new branch from active_release
-# and cherry pick to there.
-#
 
 
 pr = repo.create_pull(title=new_title,
