@@ -19,7 +19,6 @@ import json
 import six
 import subprocess
 
-from github import Github
 from pathlib import Path
 
 
@@ -48,8 +47,6 @@ if token is None:
     print("GITHUB token must be supplied via ARROW_GITHUB_API_TOKEN environmet")
     sys.exit(1)
 
-g = Github(token)
-repo = g.get_repo('alamb/actions-testing')
 
 # from merge_pr.py from arrow repo
 def run_cmd(cmd):
@@ -100,6 +97,11 @@ run_cmd(['git', 'checkout', '-b', new_branch])
 run_cmd(['git', 'reset', '--hard', 'origin/active_release'])
 run_cmd(['git', 'cherry-pick', new_sha])
 run_cmd(['git', 'push', '-u', 'origin', new_branch])
+
+from github import Github
+g = Github(token)
+repo = g.get_repo('alamb/actions-testing')
+
 
 commit = repo.get_commit(new_sha)
 for orig_pull in commit.get_pulls():
