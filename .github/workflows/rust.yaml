@@ -39,7 +39,7 @@ jobs:
         # "1" means line tables only, which is useful for panic tracebacks.
         RUSTFLAGS: "-C debuginfo=1"
     steps:
-      - uses: ./github/actions/setup_builder
+      - uses: .github/actions/setup_builder.yaml
       - name: Setup Rust toolchain
         run: |
           rustup toolchain install ${{ matrix.rust }}
