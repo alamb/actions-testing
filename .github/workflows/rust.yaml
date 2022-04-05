@@ -39,10 +39,7 @@ jobs:
         # "1" means line tables only, which is useful for panic tracebacks.
         RUSTFLAGS: "-C debuginfo=1"
     steps:
-      - name: Setup Build Dependencies
-        run: |
-          apt-get update
-          apt-get install -y protobuf-compiler
+      - uses: actions/setup_builder
       - name: Setup Rust toolchain
         run: |
           rustup toolchain install ${{ matrix.rust }}
