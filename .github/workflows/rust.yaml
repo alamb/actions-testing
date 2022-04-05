@@ -40,7 +40,7 @@ jobs:
         RUSTFLAGS: "-C debuginfo=1"
     steps:
       - uses: actions/checkout@v2
-      - uses: .github/actions/setup_builder.yaml
+      - uses: ./.github/actions/setup_builder.yaml
       - name: Setup Rust toolchain
         run: |
           rustup toolchain install ${{ matrix.rust }}
