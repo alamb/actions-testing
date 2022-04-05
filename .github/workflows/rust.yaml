@@ -41,12 +41,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-builder
-      - name: Setup Rust toolchain
-        run: |
-          rustup toolchain install ${{ matrix.rust }}
-          rustup default ${{ matrix.rust }}
-          rustup component add rustfmt
-
+        with:
+          rust-version: ${{ matrix.rust }}XXX
       - name: Build Workspace
         run: |
           export CARGO_HOME="/github/home/.cargo"
