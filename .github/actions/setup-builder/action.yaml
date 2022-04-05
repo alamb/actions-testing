@@ -33,7 +33,7 @@ runs:
     - name: Setup Rust toolchain
       shell: bash
       run: |
-        echo "Installing ${{ inputs.rust-version }}
+        echo "Installing ${{ inputs.rust-version }}"
         rustup toolchain install ${{ inputs.rust-version }}
-        rustup default ${{ inputs.matrix.rust }}
+        rustup default ${{ inputs.rust-version }}
         rustup component add rustfmt
